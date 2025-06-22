@@ -1,50 +1,52 @@
-const ShelterDetail = ({ shelter }) => {
-  const defaultImg = "/enhanced_image_1.png";
+import React from "react";
 
+const ShelterDetail = ({ shelter, onClose }) => {
   if (!shelter) return null;
 
   return (
     <div
       style={{
-        width: "100%",
-        maxWidth: "320px",
-        background: "#fff",
-        borderRadius: "16px",
-        overflow: "hidden",
-        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-        textAlign: "center",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        background: "rgba(0,0,0,0.3)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
       }}
     >
-      <div style={{ background: "#eee", height: "180px" }}>
-        <img
-          src={shelter.THUMB_IMAGE_COURS || defaultImg}
-          alt={shelter.SHTER_NM}
+      <div
+        style={{
+          background: "#fff",
+          borderRadius: 8,
+          minWidth: 300,
+          padding: 32,
+          boxShadow: "0 4px 24px #0001",
+          position: "relative",
+        }}
+      >
+        <button
+          onClick={onClose}
           style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
+            position: "absolute",
+            right: 16,
+            top: 16,
+            background: "none",
+            border: "none",
+            fontSize: 18,
+            cursor: "pointer",
           }}
-        />
-      </div>
-      <div style={{ padding: "16px" }}>
-        <h3 style={{ margin: "8px 0", fontWeight: "bold" }}>
-          {shelter.SHTER_NM}
-        </h3>
-        <p style={{ margin: "4px 0" }}> {shelter.SHTER_TELNO}</p>
-        <p style={{ margin: "4px 0" }}>
-          {shelter.REFINE_ROADNM_ADDR || shelter.REFINE_LOTNO_ADDR}
-        </p>
-
-        {shelter.HOMEPAGE && (
-          <p style={{ marginTop: "8px" }}>
-            🌐{" "}
-            <a
-              href={shelter.HOMEPAGE}
-              target="_blank"
-              rel="noopener noreferrer"
-            ></a>
-          </p>
-        )}
+        >
+          ✕
+        </button>
+        <h2>{shelter.SHTER_NM}</h2>
+        <div style={{ margin: "16px 0" }}>
+          <b>주소:</b>{" "}
+          <span>{shelter.REFINE_ROADNM_ADDR || shelter.REFINE_LOTNO_ADDR}</span>
+        </div>
       </div>
     </div>
   );

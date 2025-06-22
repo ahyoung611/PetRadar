@@ -1,31 +1,47 @@
-import '../style/ShelterList.css';
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Map from '../components/Map';
-import useShelterData from '../api/ShelterData';
-import Header from '../components/Header';
+import React, { useEffect, useRef, useState } from "react";
+import "../style/ShelterList.css";
+import { useNavigate } from "react-router-dom";
+import Map from "../components/Map";
+import useShelterData from "../api/ShelterData";
+import Header from "../components/Header";
+import ShelterDetail from "../components/ShelterDetail"; // 새로 추가
 
 const ShelterList = () => {
   const { animals, error } = useShelterData();
-  const [dots, setDots] = useState('');
-  const mapRef = useRef(null);
+  const [dots, setDots] = useState("");
+  const [selectedShelter, setSelectedShelter] = useState(null); // 모달용 상태
+  const mapCenterRef = useRef(null);
   const navigate = useNavigate();
 
   const uniqueShelters = animals.filter((shelter, index, self) => {
-    const key = `${shelter.SHTER_NM}-${shelter.REFINE_ROADNM_ADDR || shelter.REFINE_LOTNO_ADDR}`;
-    return index === self.findIndex((s) => `${s.SHTER_NM}-${s.REFINE_ROADNM_ADDR || s.REFINE_LOTNO_ADDR}` === key);
+    const key = `${shelter.SHTER_NM}-${
+      shelter.REFINE_ROADNM_ADDR || shelter.REFINE_LOTNO_ADDR
+    }`;
+    return (
+      index ===
+      self.findIndex(
+        (s) =>
+          `${s.SHTER_NM}-${s.REFINE_ROADNM_ADDR || s.REFINE_LOTNO_ADDR}` === key
+      )
+    );
   });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setDots((prev) => (prev.length >= 3 ? '' : prev + '.'));
+      setDots((prev) => (prev.length >= 3 ? "" : prev + "."));
     }, 500);
     return () => clearInterval(interval);
   }, []);
 
-  const handleItemClick = (shelter) => {
+  const handleCardClick = (shelter) => {
+    setSelectedShelter(shelter); // 모달 오픈
+  };
+
+  const handleAnimalBtnClick = (shelter) => {
     const name = encodeURIComponent(shelter.SHTER_NM);
-    const addr = encodeURIComponent(shelter.REFINE_ROADNM_ADDR || shelter.REFINE_LOTNO_ADDR);
+    const addr = encodeURIComponent(
+      shelter.REFINE_ROADNM_ADDR || shelter.REFINE_LOTNO_ADDR
+    );
     navigate(`/shelter/${name}/${addr}`);
   };
 
@@ -50,40 +66,49 @@ const ShelterList = () => {
         </div>
 
         <div className="Map-wrapper">
-          <Map
-            shelters={uniqueShelters}
-            onSelect={(shelter) => {
-              if (mapRef.current) mapRef.current(shelter); // 지도 클릭시 아무 동작 X
-            }}
-            setCenterRef={mapRef}
-          />
+          <Map shelters={uniqueShelters} setCenterRef={mapCenterRef} />
         </div>
 
         <div className="ShelterList-contents">
-          {uniqueShelters.map((shelter, index) => (
-            <div key={index} className="shelter-card">
-              {/* 이미지 클릭 -> 보호소 상세정보 */}
+          {uniqueShelters.map((shelter, idx) => (
+            <div
+              key={idx}
+              className="shelter-card"
+              onClick={() => handleCardClick(shelter)}
+              style={{ cursor: "pointer" }}
+            >
               <img
-                src={shelter.THUMB_IMAGE_COURS || '/image-default.png'}
+                src={shelter.THUMB_IMAGE_COURS || "/image-default.png"}
                 alt="썸네일"
                 className="shelter-thumb"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = '/image-default.png';
+                  e.target.src = "/image-default.png";
                 }}
               />
-              {/* 이미지 클릭 -> 보호소 상세정보 */}
               <div className="shelter-info">
                 <strong>{shelter.SHTER_NM}</strong>
                 <p>{shelter.REFINE_ROADNM_ADDR || shelter.REFINE_LOTNO_ADDR}</p>
               </div>
-              <div className="ShelterAnimalList-btn" onClick={() => handleItemClick(shelter)}>
+              <div
+                className="ShelterAnimalList-btn"
+                onClick={(e) => {
+                  e.stopPropagation(); // 부모 div 클릭 막기
+                  handleAnimalBtnClick(shelter);
+                }}
+              >
                 <p>보호동물 보기 →</p>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* 모달: ShelterDetail */}
+      <ShelterDetail
+        shelter={selectedShelter}
+        onClose={() => setSelectedShelter(null)}
+      />
     </div>
   );
 };

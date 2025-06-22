@@ -1,106 +1,120 @@
 import { useEffect, useRef } from "react";
 import "../style/Map.css";
 
-const Map = ({ shelters, onSelect, setCenterRef }) => {
-  const mapRef = useRef(null); // 맵 DOM 참조
-  const mapInstance = useRef(null); // 지도 객체 저장
-  const geocoderInstance = useRef(null); // 지오코더 저장
-  const hasCentered = useRef(false); // 초기 중심 고정 후 이동 방지
+const coordCache = (() => {
+  try {
+    return JSON.parse(localStorage.getItem("coordCache") || "{}");
+  } catch {
+    return {};
+  }
+})();
+function saveLocalCache(cache) {
+  localStorage.setItem("coordCache", JSON.stringify(cache));
+}
+
+const Map = ({ shelters = [], onSelect, setCenterRef }) => {
+  const mapRef = useRef(null);
+  const mapInstance = useRef(null);
+  const geocoderInstance = useRef(null);
+  const markersRef = useRef([]);
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=a62ab991b478d4cfb3a3e5b0c93a3148&libraries=services&autoload=false`;
-    script.async = true;
+    if (!window.kakao || !window.kakao.maps) {
+      const script = document.createElement("script");
+      script.src =
+        "//dapi.kakao.com/v2/maps/sdk.js?appkey=a62ab991b478d4cfb3a3e5b0c93a3148&libraries=services&autoload=false";
+      script.async = true;
+      script.onload = () => initMap();
+      document.head.appendChild(script);
+    } else {
+      initMap();
+    }
 
-    script.onload = () => {
+    function initMap() {
       window.kakao.maps.load(() => {
-        const map = new window.kakao.maps.Map(mapRef.current, {
-          center: new window.kakao.maps.LatLng(37.5598, 126.9734),
-          level: 12,
-        });
-        mapInstance.current = map;
-        const geocoder = new window.kakao.maps.services.Geocoder();
-        geocoderInstance.current = geocoder;
+        let map = mapInstance.current;
+        if (!map) {
+          map = new window.kakao.maps.Map(mapRef.current, {
+            center: new window.kakao.maps.LatLng(37.5598, 126.9734),
+            level: 12,
+          });
+          mapInstance.current = map;
+          geocoderInstance.current = new window.kakao.maps.services.Geocoder();
+        }
 
-        if (!Array.isArray(shelters)) return;
+        // 기존 마커 삭제
+        markersRef.current.forEach((m) => m.setMap(null));
+        markersRef.current = [];
 
-        shelters.forEach((shelter) => {
-          const address =
-            shelter.REFINE_LOTNO_ADDR || shelter.REFINE_ROADNM_ADDR;
-          if (!address) return;
+        if (shelters.length > 0) {
+          shelters.forEach((shelter) => {
+            const address =
+              shelter.REFINE_LOTNO_ADDR || shelter.REFINE_ROADNM_ADDR;
+            if (!address) return;
 
-          // 나머지 처리
-        });
+            const addMarker = (coordsObj) => {
+              // 혹시 모를 좌표 꼬임 대비해서 lat/lng 파싱
+              const lat =
+                typeof coordsObj.lat === "string"
+                  ? parseFloat(coordsObj.lat)
+                  : coordsObj.lat;
+              const lng =
+                typeof coordsObj.lng === "string"
+                  ? parseFloat(coordsObj.lng)
+                  : coordsObj.lng;
+              const latlng = new window.kakao.maps.LatLng(lat, lng);
 
-        shelters.forEach((shelter) => {
-          const address =
-            shelter.REFINE_LOTNO_ADDR || shelter.REFINE_ROADNM_ADDR;
-          if (!address) return;
-
-          geocoder.addressSearch(address, (result, status) => {
-            if (status === window.kakao.maps.services.Status.OK) {
-              const coords = new window.kakao.maps.LatLng(
-                result[0].y,
-                result[0].x
-              );
               const marker = new window.kakao.maps.Marker({
                 map,
-                position: coords,
+                position: latlng,
               });
-              const infowindow = new window.kakao.maps.InfoWindow({
-                content: `<div style="padding:5px;font-size:13px">${shelter.SHTER_NM}</div>`,
-              });
+              markersRef.current.push(marker);
 
               window.kakao.maps.event.addListener(marker, "click", () => {
-                infowindow.open(map, marker);
-                map.panTo(marker.getPosition()); // ← 부드럽게 이동
+                map.setCenter(latlng); // 딱 "해당 shelter" 위치로 중앙 이동
                 onSelect?.(shelter);
-                console.log(
-                  shelter.SHTER_NM,
-                  address,
-                  result[0].y,
-                  result[0].x
-                );
-
                 map.setLevel(5);
               });
+            };
+
+            if (coordCache[address]) {
+              addMarker(coordCache[address]);
+            } else {
+              geocoderInstance.current.addressSearch(
+                address,
+                (result, status) => {
+                  if (status === window.kakao.maps.services.Status.OK) {
+                    const coords = {
+                      lat: parseFloat(result[0].y),
+                      lng: parseFloat(result[0].x),
+                    };
+                    coordCache[address] = coords;
+                    saveLocalCache(coordCache);
+                    addMarker(coords);
+                  }
+                }
+              );
             }
           });
-        });
+        }
       });
-    };
+    }
+    // eslint-disable-next-line
+  }, [shelters]);
+
+  useEffect(() => {
     if (setCenterRef) {
       setCenterRef.current = (shelter) => {
         const addr = shelter.REFINE_ROADNM_ADDR || shelter.REFINE_LOTNO_ADDR;
         if (!addr || !geocoderInstance.current || !mapInstance.current) return;
-
-        geocoderInstance.current.addressSearch(addr, (result, status) => {
-          if (status === window.kakao.maps.services.Status.OK) {
-            const coords = new window.kakao.maps.LatLng(
-              result[0].y,
-              result[0].x
-            );
-            const current = mapInstance.current.getCenter();
-
-            if (
-              current.getLat() !== coords.getLat() ||
-              current.getLng() !== coords.getLng()
-            ) {
-              mapInstance.current.panTo(coords);
-              mapInstance.current.setLevel(9);
-            }
-          }
-        });
+        if (coordCache[addr]) {
+          const { lat, lng } = coordCache[addr];
+          mapInstance.current.setCenter(new window.kakao.maps.LatLng(lat, lng));
+          mapInstance.current.setLevel(9);
+        }
       };
     }
-
-    script.onerror = () => {
-      console.error("카카오맵 스크립트 로드 실패");
-    };
-
-    document.head.appendChild(script);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setCenterRef]);
 
   return (
     <div className="Map">
