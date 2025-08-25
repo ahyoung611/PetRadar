@@ -1,4 +1,4 @@
-import '../style/home.css';
+import "../styles/home.css";
 import Header from '../components/Header';
 import Map from '../components/Map';
 import MainMenu from '../components/MainMenu';
