@@ -1,5 +1,5 @@
 .MyPost {
-  width: 560px;
+  width: clamp(340px, 90vw, 560px);
   margin: 0 auto;
   height: 700px;
   flex-direction: column;
@@ -22,6 +22,7 @@
   border: 1px solid var(--border-color);
   border-radius: 10px;
   padding: 10px;
+  background-color: var(--bg-white-color);
 }
 
 .none-text {
@@ -81,10 +82,4 @@
   flex-basis: 0px;
   z-index: 99;
   gap: 10px;
-}
-
-@media screen and (max-width: 600px) {
-  .MyPost {
-    width: 450px;
-  }
 }

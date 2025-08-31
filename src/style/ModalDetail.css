@@ -129,6 +129,8 @@
 /* Modal-btn */
 .ModalDetail .Modal-container .Modal-btn {
   position: absolute;
-  right: -50px;
-  top: -50px;
+  /* right: -50px;
+  top: -50px; */
+  right: clamp(-50px, calc(-50px + (1000px - 100vw) * 0.1), 10px);
+  top: clamp(-50px, calc(-50px + (1000px - 100vw) * 0.1), 10px);
 }
