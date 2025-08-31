@@ -55,7 +55,6 @@
   width: clamp(200px, 30vw, 250px);
   left: clamp(-130px, -5vw, -10px);
   bottom: -100px;
-
   pointer-events: none;
 }
 
