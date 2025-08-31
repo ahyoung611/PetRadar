@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
-  width: 380px;
+  width: clamp(300px, 92vw, 380px);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -52,9 +52,10 @@
 
 .Login .Login-container .Login-contents .login-img {
   position: absolute;
-  left: -100px;
+  width: clamp(200px, 30vw, 250px);
+  left: clamp(-130px, -5vw, -10px);
   bottom: -100px;
-  width: 250px;
+
   pointer-events: none;
 }
 
@@ -88,52 +89,49 @@
   animation-timing-function: ease-in-out;
   pointer-events: none;
 }
+
 .Login .bg-icon1 {
   position: absolute;
-  width: 110px;
-  right: 400px;
+  width: 100px;
+  right: 350px;
   bottom: 100px;
   animation-delay: 0s;
 }
-
 .Login .bg-icon2 {
   position: absolute;
-  width: 130px;
-  bottom: 130px;
-  right: 150px;
+  width: 120px;
+  right: 180px;
+  bottom: 150px;
   animation-delay: 1s;
 }
-
 .Login .bg-icon3 {
   position: absolute;
-  width: 140px;
-  bottom: 350px;
-  right: 80px;
+  width: 130px;
+  right: 120px;
+  bottom: 300px;
   animation-delay: 2s;
 }
 
-@media screen and (max-width: 768px) {
-  .Login .Login-container .Login-contents .login-img {
-    width: 200px;
-    left: -50px;
-    bottom: -100px;
+@media screen and (max-width: 470px) {
+  .Login .bg-icon1 {
+    display: none;
   }
+}
 
+@media screen and (max-width: 1300px) {
   .Login .bg-icon1 {
     width: 70px;
     right: 200px;
-    bottom: 100px;
+    bottom: 120px;
   }
-
   .Login .bg-icon2 {
     width: 90px;
     right: 70px;
-    bottom: 80px;
+    bottom: 100px;
   }
-
   .Login .bg-icon3 {
     width: 100px;
-    bottom: 180px;
     right: 10px;
+    bottom: 200px;
   }
 }

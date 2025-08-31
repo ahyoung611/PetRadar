@@ -1,5 +1,5 @@
 .MyInfo {
-  width: 560px;
+  width: clamp(340px, 90vw, 560px);
   margin: 0 auto;
 }
 
@@ -101,10 +101,4 @@
 
 .MyInfo .MyInfo-contents .v_btn .DeleteAccount-btn .h_btn button {
   width: 50%;
-}
-
-@media screen and (max-width: 600px) {
-  .MyInfo {
-    width: 450px;
-  }
 }
