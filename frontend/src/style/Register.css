@@ -1,0 +1,121 @@
+.Register {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg-new);
+}
+
+.Register .Register-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(300px, 92vw, 380px);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.Register .Register-container .logo img {
+  height: 35px;
+  object-fit: cover;
+}
+
+.Register .Register-container .Register-contents {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  padding: 30px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background-color: var(--bg-white-color);
+}
+
+.Register .Register-container .Register-contents .login-img {
+  position: absolute;
+  width: clamp(200px, 30vw, 250px);
+  left: clamp(-130px, -5vw, -10px);
+  bottom: -100px;
+  pointer-events: none;
+}
+
+/* bg icon img */
+.Register .Register-container .Register-contents .login-img img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.Register .bg-icon {
+  transform: rotate(30deg);
+  opacity: 0.5;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.Register .bg-icon1,
+.Register .bg-icon2,
+.Register .bg-icon3 {
+  animation-name: blink;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  pointer-events: none;
+}
+.Register .bg-icon1 {
+  position: absolute;
+  width: 100px;
+  right: 350px;
+  bottom: 100px;
+  animation-delay: 0s;
+}
+
+.Register .bg-icon2 {
+  position: absolute;
+  width: 120px;
+  right: 180px;
+  bottom: 150px;
+  animation-delay: 1s;
+}
+
+.Register .bg-icon3 {
+  position: absolute;
+  width: 130px;
+  right: 120px;
+  bottom: 300px;
+  animation-delay: 2s;
+}
+
+@media screen and (max-width: 470px) {
+  .Register .bg-icon1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .Register .bg-icon1 {
+    width: 70px;
+    right: 200px;
+    bottom: 120px;
+  }
+
+  .Register .bg-icon2 {
+    width: 90px;
+    right: 70px;
+    bottom: 100px;
+  }
+
+  .Register .bg-icon3 {
+    width: 100px;
+    right: 10px;
+    bottom: 200px;
+  }
+}

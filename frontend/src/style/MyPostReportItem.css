@@ -1,0 +1,72 @@
+.MyPostReportItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-white-color);
+  transition: 0.35s;
+  cursor: pointer;
+}
+
+.MyPostReportItem:hover {
+  border: 1px solid var(--main-color);
+}
+
+.MyPostReportItem:hover .location {
+  color: var(--main-color);
+}
+
+.MyPostReportItem .thumbnail {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.MyPostReportItem .thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.MyPostReportItem .info {
+  width: calc(100% - 250px);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: -30px;
+  padding-right: 10px;
+}
+
+.MyPostReportItem .info p {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
+}
+
+.MyPostReportItem .title {
+  font-weight: 600;
+  font-size: var(--font-size-base);
+}
+
+.MyPostReportItem .description {
+  font-size: var(--font-size-base);
+}
+
+.MyPostReportItem .location {
+  position: absolute;
+  right: 30px;
+  bottom: 15px;
+  font-size: var(--font-size-base);
+  text-align: right;
+  transition: 0.35s;
+}

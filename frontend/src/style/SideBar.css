@@ -1,0 +1,46 @@
+.SideBar {
+  position: absolute;
+  top: 0;
+  right: -350px;
+  width: 350px;
+  height: 100%;
+  background-color: var(--bg-new);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 30px 20px;
+  transition: 1s;
+  z-index: 999;
+}
+
+.SideBar.active {
+  right: 0px;
+}
+
+.SideBar .close-btn {
+  text-align: end;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 767px) {
+  .SideBar {
+    width: 100%;
+    right: -100%;
+  }
+
+  .SideBar.active {
+    right: 0;
+  }
+}
+
+/* 반응형 수정 필요  */
+/* @media (min-width: 768px) {
+  .SideBar {
+    width: 100%;
+    right: -100%;
+  }
+
+  .SideBar.active {
+    right: 0;
+  }
+} */

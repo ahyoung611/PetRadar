@@ -1,0 +1,50 @@
+.AlertBox {
+  width: 100%;
+  height: 120px;
+  /* 임시 수정 */
+  /* height: 100px;  */
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid var(--main-color);
+  background-color: var(--bg-white-color);
+  border-radius: 10px;
+  padding: 15px;
+  line-height: 1.3;
+}
+
+.AlertBox-container {
+  display: flex;
+  flex: 1;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.AlertBox .alert-message {
+  flex: 1;
+}
+
+.AlertBox .alert-icon img {
+  width: 15px;
+}
+
+.AlertBox .alert-message h3 {
+  font-size: var(--font-size-base);
+}
+
+.AlertBox .alert-message p {
+  font-size: var(--font-small);
+  margin-top: 10px;
+}
+
+.AlertBox .alert-close {
+  font-size: var(--font-body);
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .AlertBox {
+    height: auto;
+  }
+}

@@ -1,0 +1,104 @@
+.MyInfo {
+  width: clamp(340px, 90vw, 560px);
+  margin: 0 auto;
+}
+
+/* menu-title */
+.MyInfo .menu-title {
+  text-align: center;
+  line-height: 1.5;
+  padding: 10px;
+  font-size: var(--font-title-lg-d);
+}
+
+.MyInfo .MyInfo-contents {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--bg-white-color);
+  border: 1px solid var(--border-color);
+}
+
+.MyInfo .MyInfo-contents .info {
+  width: 100%;
+}
+
+.MyInfo .MyInfo-contents .info tbody {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.MyInfo .MyInfo-contents .info tbody tr {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.MyInfo .MyInfo-contents .info tbody tr th {
+  width: 100px;
+}
+
+.MyInfo .MyInfo-contents .info tbody tr td {
+  flex: 1;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  height: 100%;
+  line-height: 40px;
+  font-size: var(--font-small);
+}
+
+.MyInfo .MyInfo-contents .info tbody tr td span {
+  padding-left: 10px;
+}
+
+.MyInfo .MyInfo-contents .info tbody tr td input {
+  width: 100%;
+  padding: 0 10px;
+  /* font-size: 15px; */
+  border: none;
+  border-radius: 8px;
+  outline: none;
+}
+
+/* button */
+.MyInfo .MyInfo-contents button {
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--main-color);
+  color: var(--text-white);
+  cursor: pointer;
+}
+
+/* DeleteAccount-btn */
+.MyInfo .MyInfo-contents .v_btn .DeleteAccount-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.MyInfo .MyInfo-contents .v_btn .DeleteAccount-btn:first-child {
+  width: 100%;
+}
+
+.MyInfo .MyInfo-contents .v_btn .DeleteAccount-btn .h_btn {
+  display: flex;
+  gap: 10px;
+}
+
+/* UserMenu-btn  */
+.MyInfo .MyInfo-contents .v_btn .UserMenu-btn {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.MyInfo .MyInfo-contents .UserMenu-btn button {
+  width: 50%;
+}
+
+.MyInfo .MyInfo-contents .v_btn .DeleteAccount-btn .h_btn button {
+  width: 50%;
+}

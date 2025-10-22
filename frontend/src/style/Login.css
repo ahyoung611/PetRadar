@@ -1,0 +1,136 @@
+.Login {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg-new);
+}
+
+.Login .Login-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: clamp(300px, 92vw, 380px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.Login .Login-container .logo img {
+  height: 35px;
+  object-fit: cover;
+}
+
+.Login .Login-container .Login-contents {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  padding: 30px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background-color: var(--bg-white-color);
+}
+
+.Login .Login-container .Login-contents .register-btn {
+  width: 100%;
+  text-align: right;
+  padding: 10px;
+}
+
+.Login .Login-container .Login-contents .register-btn .register {
+  transition: 0.5s;
+  font-size: var(--font-small);
+  text-decoration: underline;
+  color: var(--subtitle-color);
+  text-decoration: none;
+}
+
+.Login .Login-container .Login-contents .register-btn .register:hover {
+  color: var(--main-color);
+}
+
+.Login .Login-container .Login-contents .login-img {
+  position: absolute;
+  width: clamp(200px, 30vw, 250px);
+  left: clamp(-130px, -5vw, -10px);
+  bottom: -100px;
+  pointer-events: none;
+}
+
+/* bg icon img */
+.Login .Login-container .Login-contents .login-img img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.Login .bg-icon {
+  transform: rotate(30deg);
+  opacity: 0.5;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.Login .bg-icon1,
+.Login .bg-icon2,
+.Login .bg-icon3 {
+  animation-name: blink;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  pointer-events: none;
+}
+
+.Login .bg-icon1 {
+  position: absolute;
+  width: 100px;
+  right: 350px;
+  bottom: 100px;
+  animation-delay: 0s;
+}
+.Login .bg-icon2 {
+  position: absolute;
+  width: 120px;
+  right: 180px;
+  bottom: 150px;
+  animation-delay: 1s;
+}
+.Login .bg-icon3 {
+  position: absolute;
+  width: 130px;
+  right: 120px;
+  bottom: 300px;
+  animation-delay: 2s;
+}
+
+@media screen and (max-width: 470px) {
+  .Login .bg-icon1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .Login .bg-icon1 {
+    width: 70px;
+    right: 200px;
+    bottom: 120px;
+  }
+  .Login .bg-icon2 {
+    width: 90px;
+    right: 70px;
+    bottom: 100px;
+  }
+  .Login .bg-icon3 {
+    width: 100px;
+    right: 10px;
+    bottom: 200px;
+  }
+}

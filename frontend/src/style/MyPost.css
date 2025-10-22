@@ -1,0 +1,85 @@
+.MyPost {
+  width: clamp(340px, 90vw, 560px);
+  margin: 0 auto;
+  height: 700px;
+  flex-direction: column;
+  display: flex;
+}
+
+.MyPost .post-title {
+  text-align: center;
+  margin-top: 30px;
+  line-height: 1.5;
+  padding: 10px;
+  font-size: var(--font-title-lg-d);
+}
+
+.MyPost .post-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px;
+  background-color: var(--bg-white-color);
+}
+
+.none-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--subtitle-color);
+  font-size: var(--font-small);
+  font-weight: 400;
+}
+
+.MyPost .post-content .missing {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  margin-left: 10px;
+}
+
+.MyPost .post-content .MyPostMissingList {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: var(--font-small);
+  background-color: var(--main-color);
+  color: var(--text-white);
+  border-radius: 5px 5px 0 0;
+}
+
+.MyPost .post-content .MyPostMissingList .myPostMissingList-container {
+  display: flex;
+  gap: 10px;
+}
+
+.MyPost .post-content .MyPostMissingList .btn {
+  display: flex;
+  gap: 10px;
+}
+
+.MyPost .post-content .MyPostMissingList .btn p {
+  cursor: pointer;
+  transition: 0.35s;
+}
+
+.MyPost .post-content .report {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--main-color);
+  margin-top: -5px;
+  background-color: var(--bg-white-color);
+  border-radius: 0 0 5px 5px;
+  flex-grow: 1;
+  flex-basis: 0px;
+  z-index: 99;
+  gap: 10px;
+}

@@ -1,12 +1,92 @@
-# React + Vite
+![PetRadar Logo](frontend/public/gitImg.png)
+</br>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h3 align="center">"실종 동물을 가장 빠르게 찾는 위치 기반 플랫폼"</h3>
+<p align="center">위치 기반 신고 · 실시간 알림 · 보호소 연계</p>
 
-Currently, two official plugins are available:
+</br>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🐾 프로젝트 개요
 
-## Expanding the ESLint configuration
+- **프로젝트명:** 반려동물 위치 기반 실종 신고 플랫폼  
+- **개발기간:** 2025.06.16 ~ 2025.06.26  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+</br>
+
+## 🐾 프로젝트 배경 및 목적
+
+### - 배경
+매년 수많은 반려동물이 실종되지만, 여전히 전단지 부착이나 SNS 공유에 의존하는 방식이 대부분입니다.  
+
+- 기존 방식은 **정보 전달 범위와 속도에 한계** 존재  
+- 실종 직후 빠른 대응이 어려워 구조 가능성 저하  
+- 보호소와의 정보 공유 체계 부족  
+
+### - 목적
+- 위치 기반 등록 및 알림 제공을 통한 **빠른 정보 전달**  
+- 보호소와 사용자 간 연결로 **구조 효율성 강화**  
+- 실종 동물의 **발견 및 구조 성공률 향상**
+
+</br>
+
+## 🐾 주요 사용자 및 환경
+
+| 구분 | 설명 |
+|------|------|
+| 주요 사용자 | 반려동물을 잃어버린 보호자, 주변 목격자 |
+| 행동 특성 | 실시간 알림 필요, 간편한 제보 기능 선호 |
+| 사용 동기 | 실종 직후 빠른 신고와 주변 네트워크 활용 |
+| 사용 환경 | PC, 모바일 웹 |
+| 협력 기관 | 지역 동물 보호소, 지자체 |
+
+</br>
+
+## 🐾 문제 상황 및 필요성
+
+| 문제점 | 해결 방향 |
+|--------|------------|
+| 전단지·SNS 중심 → 전달 범위 한정 | 위치 기반 알림 제공 |
+| 실시간 제보 부재 | 주변 사용자에게 즉각 알림 발송 |
+| 보호소와 연계 부족 | 공공데이터 API 연동 통한 협력 체계 마련 |
+
+</br>
+
+## 🐾 주요 기능
+
+### - 위치 기반 신고 및 알림
+- 실종 동물 등록 시 주변 사용자에게 알림 제공  
+- Kakao 지도 API 기반 위치 시각화  
+
+### - 정보 공유
+- 공공데이터 API를 통한 보호소 정보 제공  
+- 실종 동물 현황 DB 저장 및 관리  
+
+### - 사용자 관리
+- 회원가입 및 로그인  
+- 사용자 유형: 일반 사용자 / 관리자  
+
+### - 게시판 기능
+- 실종 제보 및 사례 공유 (CRUD)  
+- 관리자 답변 시 알림 제공  
+
+</br>
+
+## 🐾 사용 기술 스택
+
+| 구분 | 기술 |
+|------|------|
+| **Frontend** | React, React Router |
+| **API** | Kakao 지도 API, 공공데이터 API |
+| **Deployment** | GitHub, Vercel |
+
+</br>
+
+## 🐾 기대 효과
+
+- 실종 동물 발견 시간 단축  
+- 보호소 연계를 통한 구조 성공률 향상  
+- 위치 기반 실시간 알림으로 정보 전달 범위 확장  
+
+</br>
+
+📎 본 프로젝트는 반려동물 실종 시 빠른 신고·알림·구조 지원을 목표로 하는 위치 기반 웹 플랫폼입니다.
